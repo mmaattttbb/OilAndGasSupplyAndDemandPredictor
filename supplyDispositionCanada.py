@@ -1,6 +1,6 @@
 import pandas as pd
 def createDF():
-    df = pd.read_csv('/Users/matthewbuentiempo/Desktop/Oil&Gas Project/2510005501_databaseLoadingData.csv')
+    df = pd.read_csv('2510005501_databaseLoadingData.csv')
     df = df.pivot(index='REF_DATE', columns=['GEO','Supply and disposition'], values='VALUE')
     array = []
     for i in df.columns:

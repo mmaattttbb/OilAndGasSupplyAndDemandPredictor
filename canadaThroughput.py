@@ -1,6 +1,6 @@
 import pandas as pd
 def createDF():
-    df = pd.read_csv('C:\Users\mbot1\OneDrive\Desktop\Oil and Gas Project\OilAndGasSupplyAndDemandPredictor\tcpl-mainline-throughput-and-capacity.csv')
+    df = pd.read_csv('tcpl-mainline-throughput-and-capacity.csv')
     df['Date'] = pd.to_datetime(df['Date'])
     df = df.loc[(df.Date > '12-31-2021')]
     df = df.drop(columns=['Day', 'Month', 'Year', 'Company', 'Longitude', 'Latitude', 'Pipeline', 'Throughput (GJ/d)', 'Capacity (1000 m3/d)', 'Direction Of Flow'])

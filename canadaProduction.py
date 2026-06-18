@@ -1,6 +1,6 @@
 import pandas as pd
 def createDF():
-    xls = pd.ExcelFile('C:\Users\mbot1\OneDrive\Desktop\Oil and Gas Project\OilAndGasSupplyAndDemandPredictor\canadian-marketable-natural-gas-production-2000on.XLSX')
+    xls = pd.ExcelFile('canadian-marketable-natural-gas-production-2000on.XLSX')
     df = pd.read_excel(xls, '2000+ - mmcfd Mpi3j', skiprows=8)
     df.dropna(axis=1, how='all', inplace=True)
     df.drop(columns=['Unnamed: 12'], inplace=True)
