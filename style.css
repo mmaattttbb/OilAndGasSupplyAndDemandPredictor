@@ -1,0 +1,296 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+:root {
+    --bg:        #0f1117;
+    --surface:   #1a1d27;
+    --border:    #2a2d3a;
+    --accent:    #6c63ff;
+    --accent-2:  #ff6584;
+    --text:      #e8e8f0;
+    --muted:     #8888a0;
+    --radius:    8px;
+    --max-width: 1100px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 17, 23, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+ 
+nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+}
+ 
+nav ul { list-style: none; display: flex; gap: 2rem; }
+nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+nav a:hover { color: var(--text); }
+ 
+/* ── Hero ── */
+.hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+}
+ 
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+ 
+.hero p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+ 
+/* ── Button ── */
+button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+}
+ 
+button:hover  { opacity: 0.85; }
+button:active { transform: scale(0.97); }
+ 
+.api-result {
+    margin-top: 1rem;
+    color: var(--accent);
+    font-size: 0.9rem;
+    min-height: 1.4rem;
+}
+ 
+/* ── Sections ── */
+.section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+}
+ 
+.section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+ 
+.section p { color: var(--muted); }
+ 
+/* ── Footer ── */
+footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    nav ul { gap: 1rem; }
+    .hero  { padding: 4rem 1rem 3rem; }
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background: #0f1117;
+    color: #e8e8f0;
+    margin: 0;
+    padding: 2rem;
+}
+
+.chart-card {
+    background: #1a1d27;
+    border: 1px solid #2a2d3a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+#chart-toggles,
+#chart-toggles-exports,
+#chart-toggles-imports,
+#chart-toggles-weather {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
+}
+
+.toggle-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition: color 0.2s, border-color 0.2s;
+    user-select: none;
+}
+
+.toggle-checkbox:hover {
+    color: var(--text);
+    border-color: var(--muted);
+}
+
+/* Hide the native checkbox */
+.toggle-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+/* Custom checkmark box */
+.checkmark {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 2px solid var(--chk-color);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+
+/* Filled when checked */
+.toggle-checkbox input:checked + .checkmark {
+    background: var(--chk-color);
+}
+
+/* Checkmark tick */
+.toggle-checkbox input:checked + .checkmark::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 7px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+/* Dim the label when unchecked */
+.toggle-checkbox:has(input:not(:checked)) {
+    opacity: 0.5;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 2rem auto;
+}
+
+.nav-btn {
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.65rem 1.75rem;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.nav-btn:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--surface);
+}
+
+.nav-btn.active {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.section-panel {
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.chart-slider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.chart-slider input[type="range"] {
+    flex: 1;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+#rangeValue {
+    color: var(--text);
+    font-weight: 600;
+    min-width: 2ch;
+}
+
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+    .chart-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chart-scroll-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.chart-scroll-wrapper canvas {
+    width: 100% !important;
+}
