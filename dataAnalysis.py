@@ -44,8 +44,9 @@ ontarioConsumption['Chippawa-export'] = ontarioSupply['Chippawa-export']
 ontarioConsumption['Iroquois-export'] = ontarioSupply['Iroquois-export']
 ontarioConsumption['Niagara-export'] = ontarioSupply['Niagara-export']
 ontarioConsumption['Other US Northeast'] = ontarioSupply['Other US Northeast-export']
-ontarioConsumption['Monthly Consumption'] = ontarioSupply.sum(axis=1, numeric_only=True)
-ontarioSupply = ontarioSupply.drop(columns=['Chippawa-export', 'Iroquois-export', 'Niagara-export', 'Other US Northeast-export'])
+ontarioConsumption['Eastern Triangle - Parkway Deliveries'] = ontarioSupply['Eastern Triangle - Parkway Deliveries']
+ontarioConsumption['Monthly Consumption'] = ontarioConsumption.sum(axis=1, numeric_only=True)
+ontarioSupply = ontarioSupply.drop(columns=['Chippawa-export', 'Iroquois-export', 'Niagara-export', 'Other US Northeast-export', 'Eastern Triangle - Parkway Deliveries'])
 ontarioSupply['Monthly Supply'] = ontarioSupply.sum(axis=1, numeric_only=True)
 netSupplyDemand = pd.DataFrame()
 netSupplyDemand['Date'] = ontarioConsumption['Date']

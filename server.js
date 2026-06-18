@@ -33,7 +33,7 @@ app.get('/api/production', async (req, res) => {
                 d."Pensylvania Withdrawals",
                 d."West-Virginia Withdrawals",
                 s."British Columbia-Closing inventory",
-                s."Eastern Triangle - NOL Receipts-intracanada",
+                s."Eastern Triangle - NOL Receipts",
                 s."Chippawa-import",
                 s."Iroquois-import",
                 s."Niagara-import",

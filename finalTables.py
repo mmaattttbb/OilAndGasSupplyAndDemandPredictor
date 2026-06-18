@@ -25,7 +25,7 @@ def getTemp():
 
 def getSupply():
     canSupply = canadaThroughput.createDF()
-    canSupply = canSupply.drop(columns=['Chippawa-export', 'Iroquois-export', 'Niagara-export'])
+    canSupply = canSupply.drop(columns=['Chippawa-export', 'Iroquois-export', 'Niagara-export', 'Other US Northeast-export', 'Eastern Triangle - Parkway Deliveries'])
     cadUSProduction = mergeDataFrames.createDF()
     supplyCad = supplyDispositionCanada.createDF()
     supplyCad = supplyCad[['Ontario-Residential consumption', 'Date', 'Ontario-Closing inventory', 'Alberta-Closing inventory', 'British Columbia-Closing inventory']]
@@ -36,7 +36,7 @@ def getSupply():
 def getDemand():
     wVirginiaPensylvania = westVirginiaPensylvania.createDF()
     canDemand = canadaThroughput.createDF()
-    canDemand = canDemand.drop(columns=['Chippawa-import', 'Iroquois-import', 'Niagara-import', 'Eastern Triangle - NOL Receipts-intracanada'])
+    canDemand = canDemand.drop(columns=['Chippawa-import', 'Iroquois-import', 'Niagara-import', 'Eastern Triangle - NOL Receipts', 'Eastern Triangle - Parkway Receipts'])
     demandTable = pd.merge(wVirginiaPensylvania, canDemand, on='Date', how='outer')
     demandCad = supplyDispositionCanada.createDF()
     demandCad = demandCad.drop(columns=['British Columbia-Residential consumption', 'Alberta-Residential consumption', 'Ontario-Residential consumption', 'Ontario-Closing inventory', 'Alberta-Closing inventory', 'British Columbia-Closing inventory'])

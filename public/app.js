@@ -16,7 +16,7 @@ async function loadCharts() {
         const pennsylvaniaWith   = data.map(row => row["Pensylvania Withdrawals"] ? parseFloat(row["Pensylvania Withdrawals"]).toFixed(2) : null);
         const westVirginiaWith   = data.map(row => row["West-Virginia Withdrawals"] ? parseFloat(row["West-Virginia Withdrawals"]).toFixed(2) : null);
         const bcClosingInv       = data.map(row => row["British Columbia-Closing inventory"] ? parseFloat(row["British Columbia-Closing inventory"]).toFixed(2) : null);
-        const easternTriangle    = data.map(row => row["Eastern Triangle - NOL Receipts-intracanada"] ? parseFloat(row["Eastern Triangle - NOL Receipts-intracanada"]).toFixed(2) : null);
+        const easternTriangle    = data.map(row => row["Eastern Triangle - NOL Receipts"] ? parseFloat(row["Eastern Triangle - NOL Receipts"]).toFixed(2) : null);
         const chippawaImport     = data.map(row => row["Chippawa-import"] ? parseFloat(row["Chippawa-import"]).toFixed(2) : null);
         const iroquoisImport     = data.map(row => row["Iroquois-import"] ? parseFloat(row["Iroquois-import"]).toFixed(2) : null);
         const niagaraImport      = data.map(row => row["Niagara-import"] ? parseFloat(row["Niagara-import"]).toFixed(2) : null);
@@ -131,8 +131,8 @@ async function loadCharts() {
                     title: { display: true, text: 'General Data', color: '#e8e8f0'}
                 },
                 scales: {
-                    x: { display: true, title: { display: true, text: 'Date', color: '#8888a0' }, ticks: { maxTicksLimit: 12, maxRotation: 45, minRotation: 45, color: '#8888a0'}},
-                    y: { display: true, title: { display: true, text: 'Value', color: '#8888a0' }, ticks: { color: '#8888a0' }}
+                    x: { display: true, title: { display: true, text: 'Date', color: '#8888a0' }, ticks: { maxTicksLimit: 12, maxRotation: 45, minRotation: 45, color: '#8888a0'}, grid: { color: 'rgba(255,255,255,0.05)' }},
+                    y: { display: true, title: { display: true, text: 'Value', color: '#8888a0' }, ticks: { color: '#8888a0' }, grid: { color: 'rgba(255,255,255,0.05)' }}
                 }
             }
         });
