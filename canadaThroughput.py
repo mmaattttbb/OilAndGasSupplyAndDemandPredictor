@@ -21,4 +21,3 @@ def createDF():
     result = result.resample('MS').mean()
     result = result * 1000 * 35.3147 / 1000000
     return result
-print(createDF())
