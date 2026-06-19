@@ -217,12 +217,93 @@ async function loadCharts() {
             window.yoyChart.update();
         }
         window.syncYoyChart = syncYoyChart;
+
+        // ── Scatter plot: x = first selected toggle, y = second selected toggle ──
+        window.scatterChart = new Chart(document.getElementById('scatterPlot'), {
+            type: 'scatter',
+            data: { datasets: [] },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { color: '#e8e8f0' } },
+                    title: { display: true, text: 'Select two toggles to compare', color: '#e8e8f0' }
+                },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: { display: true, text: 'X', color: '#8888a0' },
+                        ticks: { color: '#8888a0' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Y', color: '#8888a0' },
+                        ticks: { color: '#8888a0' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
+                }
+            }
+        });
+
+        // Tracks the order in which checkboxes were checked (not just which are checked)
+        window.selectedOrder = [];
+
+        function syncScatterChart() {
+            const chart = window.scatterChart;
+            const picked = window.selectedOrder.slice(0, 2);
+
+            if (picked.length < 2) {
+                chart.data.datasets = [];
+                chart.options.plugins.title.text = 'Select two toggles to compare';
+                chart.options.scales.x.title.text = 'X';
+                chart.options.scales.y.title.text = 'Y';
+                chart.update();
+                return;
+            }
+
+            const [xIndex, yIndex] = picked;
+            const xSeries = allData[xIndex];
+            const ySeries = allData[yIndex];
+            const points = [];
+            for (let i = 0; i < xSeries.length; i++) {
+                const xVal = xSeries[i];
+                const yVal = ySeries[i];
+                if (xVal !== null && yVal !== null) {
+                    points.push({ x: parseFloat(xVal), y: parseFloat(yVal) });
+                }
+            }
+
+            chart.data.datasets = [{
+                label: `${datasetMeta[yIndex].label} vs ${datasetMeta[xIndex].label}`,
+                data: points,
+                backgroundColor: datasetMeta[yIndex].color,
+                borderColor: datasetMeta[yIndex].color,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }];
+            chart.options.plugins.title.text = `${datasetMeta[yIndex].label} vs ${datasetMeta[xIndex].label}`;
+            chart.options.scales.x.title.text = datasetMeta[xIndex].label;
+            chart.options.scales.y.title.text = datasetMeta[yIndex].label;
+            chart.update();
+        }
+        window.syncScatterChart = syncScatterChart;
+
         document.querySelectorAll('.section-panel input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', () => {
                 const index = parseInt(checkbox.dataset.dataset);
                 window.productionChart.data.datasets[index].hidden = !checkbox.checked;
                 window.productionChart.update();
                 syncYoyChart();
+
+                if (checkbox.checked) {
+                    if (!window.selectedOrder.includes(index)) {
+                        window.selectedOrder.push(index);
+                    }
+                } else {
+                    window.selectedOrder = window.selectedOrder.filter(i => i !== index);
+                }
+                syncScatterChart();
             });
         });
         const slider = document.getElementById('dataRange');
@@ -256,6 +337,14 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     if (window.yoyChart) {
         window.yoyChart.data.datasets = [];
         window.yoyChart.update();
+    }
+    window.selectedOrder = [];
+    if (window.scatterChart) {
+        window.scatterChart.data.datasets = [];
+        window.scatterChart.options.plugins.title.text = 'Select two toggles to compare';
+        window.scatterChart.options.scales.x.title.text = 'X';
+        window.scatterChart.options.scales.y.title.text = 'Y';
+        window.scatterChart.update();
     }
     document.querySelectorAll('.nav-btn:not(#resetBtn)').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.section-panel').forEach(panel => {

@@ -54,4 +54,5 @@ netSupplyDemand['Supply'] = ontarioSupply['Monthly Supply']
 netSupplyDemand['Consumption'] = ontarioConsumption['Monthly Consumption']
 netSupplyDemand['Difference'] = netSupplyDemand['Supply'] - netSupplyDemand['Consumption']
 netSupplyDemand.reset_index(drop=True, inplace=True)
-print(netSupplyDemand)
+print(ontarioConsumption)
+#print(netSupplyDemand)
